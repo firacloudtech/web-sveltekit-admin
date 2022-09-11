@@ -5,14 +5,14 @@ import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyBwbwBcgpDkkOe6T3pJ4TZnxFt8I2c3PzE',
-	authDomain: 'osca-demo.firebaseapp.com',
-	databaseURL: 'https://osca-demo.firebaseio.com',
-	projectId: 'osca-demo',
-	storageBucket: 'osca-demo.appspot.com',
-	messagingSenderId: '162390143557',
-	appId: '1:162390143557:web:4eff9a8437a50b63',
-	measurementId: 'G-DBDD2RGD46'
+	apiKey: '',
+	authDomain: '',
+	databaseURL: '',
+	projectId: '',
+	storageBucket: '',
+	messagingSenderId: '',
+	appId: '',
+	measurementId: ''
 };
 
 const app = initializeApp(firebaseConfig);

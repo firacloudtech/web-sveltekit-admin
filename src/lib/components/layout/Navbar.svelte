@@ -1,4 +1,5 @@
 <script>
+	import { logOut } from '$lib/api/user.api';
 	import { ROUTES } from '$lib/utils/types/routes.type';
 </script>
 
@@ -35,7 +36,7 @@
 				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 text-gray-500 rounded-box w-52"
 			>
 				<li><a href="/">Settings</a></li>
-				<li><a href="/">Logout</a></li>
+				<li><button on:click={() => logOut()}>Logout</button></li>
 			</ul>
 		</div>
 	</div>

@@ -1,6 +1,25 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { signIn } from '$lib/api/user.api';
 	import Login from '$lib/components/auth/login.svelte';
+	import type { LoginDataType } from '$lib/utils/types/auth.type';
+	import { ROUTES } from '$lib/utils/types/routes.type';
+	import type { UserCredential } from 'firebase/auth';
+
+	let error: any;
+
+	async function handleLogin(event: CustomEvent<LoginDataType>) {
+		try {
+			const user: UserCredential | unknown = await signIn(event);
+
+			if (user?.user) {
+				goto(ROUTES.BLOGS);
+			}
+			error = user;
+		} catch (error) {
+			error = error?.message;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -13,6 +32,7 @@
 			<h1 class="text-5xl font-bold">Login now!</h1>
 			<p class="py-6">Login text</p>
 		</div>
-		<Login on:signIn={signIn} />
+
+		<Login on:signIn={handleLogin} {error} />
 	</div>
 </div>

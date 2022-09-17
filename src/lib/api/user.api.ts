@@ -1,13 +1,16 @@
-import { doc, setDoc } from 'firebase/firestore/lite';
+import { auth, db } from '$lib/firebase';
+import { authErrorHandler } from '$lib/utils/authErrorHandler';
 import type { LoginDataType, RegisterDataType } from '$lib/utils/types/auth.type';
 import { COLLECTIONS } from '$lib/utils/types/collections.type';
-import { auth, db } from '$lib/firebase';
+import { FirebaseError } from 'firebase/app';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-	updateProfile
+	signOut,
+	updateProfile,
+	type UserCredential
 } from 'firebase/auth';
-import { goto } from '$app/navigation';
+import { doc, setDoc } from 'firebase/firestore/lite';
 
 export const userDoc = (userId: string) => doc(db, COLLECTIONS.USERS, userId);
 
@@ -24,15 +27,29 @@ export async function signUp(event: CustomEvent<RegisterDataType>) {
 	}
 }
 
-export async function signIn(event: CustomEvent<LoginDataType>) {
+export async function signIn(event: CustomEvent<LoginDataType>): Promise<UserCredential | unknown> {
 	try {
 		let user = await signInWithEmailAndPassword(auth, event.detail.email, event.detail.password);
-		await setDoc(userDoc(auth.currentUser?.uid || ''), {
-			username: user.user.displayName,
+
+		await setDoc(doc(db, 'users', user.user.uid), {
 			email: user.user.email
 		});
-		await goto('/' + COLLECTIONS.BLOGS);
+
+		return user;
+	} catch (error: unknown) {
+		console.log(error);
+		if (error instanceof FirebaseError) {
+			authErrorHandler(error);
+		}
+		return error;
+	}
+}
+
+export async function logOut() {
+	try {
+		await signOut(auth);
+		return true;
 	} catch (error) {
-		console.error('error signin in', error);
+		return error;
 	}
 }

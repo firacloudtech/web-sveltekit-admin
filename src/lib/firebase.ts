@@ -28,4 +28,5 @@ if (import.meta.env.MODE !== 'production') {
 	connectFirestoreEmulator(db, 'localhost', 5020);
 	connectFunctionsEmulator(functions, 'localhost', 5001);
 	connectDatabaseEmulator(realtimeDB, 'localhost', 9000);
+	connectFirestoreEmulator(db, 'localhost', 8080);
 }

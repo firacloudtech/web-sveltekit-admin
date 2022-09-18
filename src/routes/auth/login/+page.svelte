@@ -10,14 +10,16 @@
 
 	async function handleLogin(event: CustomEvent<LoginDataType>) {
 		try {
-			const user: UserCredential | unknown = await signIn(event);
+			const user = await signIn(event);
 
 			if (user?.user) {
 				goto(ROUTES.BLOGS);
 			}
 			error = user;
 		} catch (error) {
-			error = error?.message;
+			if (error instanceof Error) {
+				error = error.message;
+			}
 		}
 	}
 </script>

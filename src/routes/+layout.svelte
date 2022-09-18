@@ -8,12 +8,19 @@
 	import { themeChange } from 'theme-change';
 	import '../app.css';
 	import { auth } from '../lib/firebase';
+	import authStore from '$lib/store/authStore';
 	export const csr = false;
 	export const prerender = true;
 
 	onMount(() => {
 		themeChange(false);
 		onAuthStateChanged(auth, (user) => {
+			authStore.set({
+				isLoggedIn: user !== null,
+				user,
+				firebaseControlled: true
+			});
+
 			if (user) {
 				goto(ROUTES.BLOGS);
 			} else {

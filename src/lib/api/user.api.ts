@@ -27,7 +27,7 @@ export async function signUp(event: CustomEvent<RegisterDataType>) {
 	}
 }
 
-export async function signIn(event: CustomEvent<LoginDataType>): Promise<UserCredential | unknown> {
+export async function signIn(event: CustomEvent<LoginDataType>) {
 	try {
 		let user = await signInWithEmailAndPassword(auth, event.detail.email, event.detail.password);
 

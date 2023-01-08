@@ -12,12 +12,12 @@ export async function addTodo(todo: Todo, userId: string) {
 	}
 }
 
-export async function getTodos(userId: string): Promise<Todo[]> {
+export async function getTodos(userId?: string): Promise<Todo[]> {
 	if (userId === '') {
 		return [];
 	}
 	try {
-		const snapshot = await getDocs(collection(db, COLLECTIONS.TODOS + `/${userId}`));
+		const snapshot = await getDocs(collection(db, COLLECTIONS.TODOS));
 
 		return snapshot.docs.map((doc) => {
 			let data: Todo = doc.data() as Todo;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { signUp } from '$lib/api/user.api';
+	import { signUp } from '$lib/data/user.api';
 	import Register from '$lib/components/auth/register.svelte';
 </script>
 

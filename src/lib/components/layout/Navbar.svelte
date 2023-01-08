@@ -1,5 +1,5 @@
 <script>
-	import { logOut } from '$lib/api/user.api';
+	import { logOut } from '$lib/data/user.api';
 	import { ROUTES } from '$lib/utils/types/routes.type';
 </script>
 

@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { signIn } from '$lib/api/user.api';
 	import Login from '$lib/components/auth/login.svelte';
+	import { signIn } from '$lib/data/user.api';
 	import type { LoginDataType } from '$lib/utils/types/auth.type';
 	import { ROUTES } from '$lib/utils/types/routes.type';
-	import type { UserCredential } from 'firebase/auth';
 
 	let error: any;
 

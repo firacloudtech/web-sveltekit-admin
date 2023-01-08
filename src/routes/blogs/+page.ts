@@ -1,10 +1,8 @@
-import { getTodos } from '$lib/api/todo.api';
-import { auth } from '$lib/firebase';
+import { getTodos } from '$lib/data/todo.api';
+import type { PageLoad } from './$types';
 
-export const load = async () => {
-	const todos = await getTodos(auth.currentUser?.uid || '');
-
+export const load = (async () => {
 	return {
-		todos
+		todos: await getTodos()
 	};
-};
+}) satisfies PageLoad;
